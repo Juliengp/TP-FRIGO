@@ -6,7 +6,7 @@
 </template>
 <script setup>
 
-import AlimentAffich from "@/components/AlimentAffich.vue";
+import AlimentAffich from "@/components/Inventaire.vue";
 </script>
 
 <style scoped>

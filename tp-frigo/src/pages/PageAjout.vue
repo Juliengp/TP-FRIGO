@@ -1,6 +1,6 @@
 <script setup>
 
-import AddAlimentFrigo from "@/components/AddAlimentFrigo.vue";
+import AddAlimentFrigo from "@/components/Ajout.vue";
 
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import FormText from "@/components/FormText.vue";
+import FormText from "@/components/ApparenceAjout.vue";
 
 const url="https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/11/produits"
 
