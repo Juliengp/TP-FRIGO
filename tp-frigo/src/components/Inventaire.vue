@@ -103,6 +103,8 @@ function suppElement(idElement) {
       <v-card color="pink">
         <v-img
           :src="element.photo"
+          height="200px"
+          cover
         ></v-img>
         <v-card-title>
           {{ element.nom }} : {{ element.qte }}
