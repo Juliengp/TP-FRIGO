@@ -2,11 +2,11 @@
   <v-container class="titre">
     FRIGO
   </v-container>
-  <AlimentAffich></AlimentAffich>
+  <AffichElement></AffichElement>
 </template>
 <script setup>
 
-import AlimentAffich from "@/components/Inventaire.vue";
+import AffichElement from "@/components/Inventaire.vue";
 </script>
 
 <style scoped>

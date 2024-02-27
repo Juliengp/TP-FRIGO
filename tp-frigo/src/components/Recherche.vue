@@ -2,16 +2,16 @@
 
 import {ref, watch} from "vue";
 
-const nomA=ref('');
-const emit=defineEmits(['updateR']);
+const nomMC=ref('');
+const emit=defineEmits(['modif']);
 
-function searchA(nomA){
-  emit('updateR',nomA)
+function rechercheMC(nomMC){
+  emit('modif',nomMC)
 }
 
 
-watch(nomA, (newValue) => {
-  searchA(newValue)
+watch(nomMC, (newValue) => {
+  rechercheMC(newValue)
 });
 
 </script>
@@ -19,10 +19,10 @@ watch(nomA, (newValue) => {
 <template>
 
   <div id="rech">
-    <form @submit.prevent="$emit('updateR', nomA)">
+    <form @submit.prevent="$emit('modif', nomMC)">
       <label class="titre">Chercher dans l'inventaire</label>
       <br><br>
-      <input class="Case" type="text" v-model="nomA" placeholder="Nom" required/>
+      <input class="Case" type="text" v-model="nomMC" placeholder="Nom" required/>
       <br><br>
     </form>
   </div>

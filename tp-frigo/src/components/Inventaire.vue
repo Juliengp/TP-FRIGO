@@ -1,24 +1,24 @@
 <script setup>
 
 import {onMounted, reactive, watch} from "vue";
-import Aliment from "@/Element";
-import AlimentList from "@/components/Recherche.vue";
+import Element from "@/Element";
+import ListElement from "@/components/Recherche.vue";
 
 const url="https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/11/produits";
-const listeAli = reactive([]);
+const listeElement = reactive([]);
 
 let nomA ='';
 
-function affichAli() {
+function affichElement() {
   fetch(url+ `?search=`+ nomA)
     .then((response) => {
       return response.json();
     })
     .then((dataJSON) => {
       console.log(dataJSON);
-      listeAli.splice(0,listeAli.length)
-      for(let aliment of dataJSON){
-        listeAli.push(new Aliment(aliment.id, aliment.nom, aliment.qte, aliment.photo))
+      listeElement.splice(0,listeElement.length)
+      for(let element of dataJSON){
+        listeElement.push(new Element(element.id, element.nom, element.qte, element.photo))
       }
     })
     .catch((error) => {
@@ -26,57 +26,59 @@ function affichAli() {
     });
 }
 onMounted( () => {
-  affichAli();
+  affichElement();
 })
 
-function updateR(n){
+function modification(n){
   nomA=n
-  affichAli()
+  affichElement()
 }
 
-async function addOne(aliment){
-  aliment.actual_qte++;
-  await updateQuantity(aliment);
+ function ajoutQuantité(element){
+  element.setqte(1);
+   modifierQuantité(element);
 }
 
-async function removeOne(aliment){
-  if (aliment.actual_qte > 0) {
-    aliment.actual_qte--;
-    await updateQuantity(aliment);
+ function retirerQuantité(element){
+  if (element.qte > 0) {
+    element.setqte(-1);
+     modifierQuantité(element);
   }else {
     console.log("Quantité déjà à zéro");
     alert("Quantité déjà nulle")
   }
 }
 
-async function updateQuantity(aliment) {
+ function modifierQuantité(element) {
   const fetchOptions = {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({id: aliment.id, qte: aliment.actual_qte})
+    body: JSON.stringify({id: element.id, nom: element.nom, qte: element.qte, photo: element.photo})
   };
-  try {
-    const response = await fetch(url, fetchOptions);
-    const dataJSON = await response.json();
-    console.log(dataJSON);
-    affichAli();
-  } catch (error) {
-    console.error(error);
-  }
+    fetch(url, fetchOptions)
+  .then((response)=>{
+      return response.json();
+    })
+      .then((dataJSON)=>{
+        console.log(dataJSON);
+        affichElement();
+      })
+      .catch((error)=> console.log(error));
+
 }
 
 
-function deleteAli(idAliment) {
+function suppElement(idElement) {
   const fetchOptions = {
     method: "DELETE",
   };
-  fetch(url+"/"+idAliment, fetchOptions)
+  fetch(url+"/"+idElement, fetchOptions)
     .then((response)=>{
       return response.json();
     })
     .then((dataJSON)=>{
       console.log(dataJSON);
-      affichAli();
+      affichElement();
     })
     .catch((error)=> console.log(error));
 }
@@ -86,13 +88,13 @@ function deleteAli(idAliment) {
 
 <template>
   <div>
-    <AlimentList @updateR="updateR"/>
+    <ListElement @modif="modification"/>
   </div>
 
   <v-row dense>
     <v-col
-      v-for="aliment in listeAli"
-      :key="aliment.id"
+      v-for="element in listeElement"
+      :key="element.id"
       cols="12"
       sm="6"
       md="3"
@@ -100,18 +102,18 @@ function deleteAli(idAliment) {
       xl="2">
       <v-card color="pink">
         <v-img
-          :src="aliment.photo"
+          :src="element.photo"
         ></v-img>
         <v-card-title>
-          {{ aliment.nom }} : {{ aliment.actual_qte }}
+          {{ element.nom }} : {{ element.qte }}
         </v-card-title>
-        <v-btn class="soustrait" @click="removeOne(aliment)">
+        <v-btn class="soustrait" @click="retirerQuantité(element)">
           -
         </v-btn>
-        <v-btn class="ajout" @click="addOne(aliment)">
+        <v-btn class="ajout" @click="ajoutQuantité(element)">
           +
         </v-btn>
-        <v-btn class="retirer" @click="deleteAli(aliment.id)"> Supp </v-btn>
+        <v-btn class="retirer" @click="suppElement(element.id)"> Supp </v-btn>
       </v-card>
     </v-col>
   </v-row>

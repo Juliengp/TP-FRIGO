@@ -4,7 +4,6 @@ export default class Element{
     this._nom = nom
     this._qte = qte
     this._photo = photo ?? ""
-    this._actual_qte = 1
   }
 
   get id() {
@@ -20,12 +19,8 @@ export default class Element{
     return this._photo
   }
 
-  get actual_qte(){
-    return this._actual_qte
-  }
-
-  set actual_qte(value){
-    this._actual_qte = value;
+  setqte(value){
+    this._qte += value;
   }
 
 }

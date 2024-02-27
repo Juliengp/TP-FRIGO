@@ -1,9 +1,10 @@
 <script setup>
-import FormText from "@/components/ApparenceAjout.vue";
+import FormAjout from "@/components/ApparenceAjout.vue";
+import router from "@/router";
 
 const url="https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/11/produits"
 
-function addAli(n,q,p) {
+    function ajoutElement(n, q, p) {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   const fetchOptions = {
@@ -17,6 +18,7 @@ function addAli(n,q,p) {
     })
     .then((dataJSON)=>{
       console.log(dataJSON);
+      router.push("/");
     })
     .catch((error)=> console.log(error));
 }
@@ -26,7 +28,7 @@ function addAli(n,q,p) {
 
 <template>
 
-  <FormText @addAli="addAli"/>
+  <FormAjout @ajoutElement="ajoutElement"/>
 
 </template>
 

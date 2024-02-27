@@ -1,6 +1,6 @@
 <script setup>
 
-import AddAlimentFrigo from "@/components/Ajout.vue";
+import AjoutElement from "@/components/Ajout.vue";
 
 </script>
 
@@ -9,7 +9,7 @@ import AddAlimentFrigo from "@/components/Ajout.vue";
     <v-container class="titre"> Remplir frigo </v-container>
     <br><br><br><br><br><br>
 
-    <AddAlimentFrigo />
+    <AjoutElement />
     <br><br><br><br><br><br>
 
   </v-container>

@@ -1,11 +1,11 @@
 <script setup>
-defineEmits(['addAli']);
+defineEmits(['ajoutElement']);
 let nom = ""; let qte = ""; let photo = "";
 </script>
 
 <template>
   <div class="MiseEnPage">
-    <form @submit.prevent="$emit('addAli',nom,qte,photo)" class="bloc">
+    <form @submit.prevent="$emit('ajoutElement',nom,qte,photo)" class="bloc">
       <div class="case">
         <input type="text" v-model="nom" placeholder="Nom" required/>
       </div>
