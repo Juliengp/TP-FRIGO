@@ -3,7 +3,7 @@ export default class Element{
     this._id = id
     this._nom = nom
     this._qte = qte
-    this._photo = photo ?? ""
+    this._photo = photo
   }
 
   get id() {
